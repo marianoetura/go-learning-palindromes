@@ -30,33 +30,32 @@ func ignore(s string) string {
 	var ignored []rune
 
 	for i := 0; i < len(runes); i++ {
-		if runes[i] >= 48 && runes[i] <= 57 { //NUMEROS
+		if runes[i] >= 48 && runes[i] <= 57 { //NUMBERS
 			ignored = append(ignored, runes[i])
 		}
-		if runes[i] >= 97 && runes[i] <= 122 { //MINUSCULA
+		if runes[i] >= 97 && runes[i] <= 122 { //LowerCase
 			ignored = append(ignored, runes[i])
 		}
-		if runes[i] >= 65 && runes[i] <= 90 { //MAYUSCULA
+		if runes[i] >= 65 && runes[i] <= 90 { //UpperCase
 			ignored = append(ignored, runes[i])
 		}
-		if runes[i] >= 193 && runes[i] <= 221 { //MINUSCULA C/ACENTOS
+		if runes[i] >= 193 && runes[i] <= 221 { //accented LowerCase
 			ignored = append(ignored, runes[i])
 		}
-		if runes[i] >= 225 && runes[i] <= 253 { //MAYUSCULA C/ACENTOS
+		if runes[i] >= 225 && runes[i] <= 253 { //accented UperCase
 			ignored = append(ignored, runes[i])
 		}
 	}
 
+	// for i := 0; i < len(runes); i++ {
+	// 	if unicode.IsLetter(runes[i]) || unicode.IsNumber(runes[i]) { //NUMEROS
+	// 		ignored = append(ignored, runes[i])
+	// 	}
+	// }
+
 	return string(ignored)
 }
 
-// func rstring(s string) string {
-// 	runes := []rune(s)
-// 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-// 		runes[i], runes[j] = runes[j], runes[i]
-// 	}
-// 	return string(runes)
-// }
 func main() {
 	fmt.Println("Hola Mundo 🌍!")
 	//Empiezo yo
@@ -71,19 +70,19 @@ func main() {
 
 	stringArray := strings.Split(content, "\n") //Elimino los saltos de linea
 
-	myMap := make(map[string]int) //Creo el mapa
+	myMap := make(map[string]int)
 
 	for i := 0; i < len(stringArray); i++ {
 		key := stringArray[i]
-		key = ignore(key)                        //Ignora lo que no es alfanumerico
-		if value, exists := myMap[key]; exists { //Busca si esta repetido
+		key = ignore(key)                        //Calls the ignore function
+		if value, exists := myMap[key]; exists { //If repeated add 1
 			myMap[key] = value + 1
 		} else {
-			myMap[key] = 1 //Si no esta repetido inicializa en 1
+			myMap[key] = 1 //If not, initialize
 		}
 
 	}
-	for key, value := range myMap { //Da los resultados
+	for key, value := range myMap { //Print the results
 		fmt.Println("🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀🐀")
 		if value == 1 {
 			fmt.Println(key, "no se repite en el archivo")
